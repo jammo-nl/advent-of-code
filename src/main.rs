@@ -1,4 +1,6 @@
 use std::env;
+mod tools;
+
 mod day01;
 
 fn main() {

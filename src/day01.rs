@@ -1,16 +1,4 @@
-use std::fs;
-
-// return the file content as a vector of u32
-fn read_lines(filename: &str) -> Vec<u32> {
-    let content = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    let mut lines: Vec<u32> = vec!();
-    for line in content.lines() {
-        if let Ok(value) = line.parse::<u32>()  {
-            lines.push(value);
-        }
-    }
-    lines
-}
+use crate::tools::read_lines;
 
 pub fn run_all() -> String {
     let part1 = part1(read_lines("./inputs/day01.txt"));
@@ -80,17 +68,16 @@ pub fn part2(input: Vec<u32>) -> u32 {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     #[test]
     fn test_part1() {
-        let input: Vec<u32> = vec!(199,200,208,210,200,207,240,269,260,263);
-        let output = super::part1(input);
+        let output = part1(read_lines("./inputs/day01_test.txt"));
         assert_eq!(output, 7)
     }
 
     #[test]
     fn test_part2() {
-        let input: Vec<u32> = vec!(199,200,208,210,200,207,240,269,260,263);
-        let output = super::part2(input);
+        let output = part2(read_lines("./inputs/day01_test.txt"));
         assert_eq!(output, 5)
     }
 }
