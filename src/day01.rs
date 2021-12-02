@@ -1,8 +1,10 @@
 use crate::tools::read_lines;
 
+static INPUT: &str = "./inputs/day01.txt";
+
 pub fn run_all() -> String {
-    let part1 = part1(read_lines("./inputs/day01.txt"));
-    let part2 = part2(read_lines("./inputs/day01.txt"));
+    let part1 = part1(read_lines(INPUT));
+    let part2 = part2(read_lines(INPUT));
 
     format!("
 Result part 1: {}
@@ -68,16 +70,18 @@ fn part2(input: Vec<u32>) -> u32 {
 
 #[cfg(test)]
 mod tests {
+    static INPUT: &str = "./inputs/day01_test.txt";
+
     use super::*;
     #[test]
     fn test_part1() {
-        let output = part1(read_lines("./inputs/day01_test.txt"));
+        let output = part1(read_lines(INPUT));
         assert_eq!(output, 7)
     }
 
     #[test]
     fn test_part2() {
-        let output = part2(read_lines("./inputs/day01_test.txt"));
+        let output = part2(read_lines(INPUT));
         assert_eq!(output, 5)
     }
 }
