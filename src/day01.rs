@@ -10,7 +10,7 @@ Result part 2: {}
     ", part1, part2)
 }
 
-pub fn part1(input: Vec<u32>) -> u32 {
+fn part1(input: Vec<u32>) -> u32 {
     // keep track of the last depth, this starts as None
     let mut last_input: Option<u32> = None;
     // and count the number of times it increases
@@ -35,7 +35,7 @@ pub fn part1(input: Vec<u32>) -> u32 {
 
     increases
 }
-pub fn part2(input: Vec<u32>) -> u32 {
+fn part2(input: Vec<u32>) -> u32 {
     // keep track of all value sets (of size 3)
     let mut last_input_set: Option<u32> = None;
     // count the number of times the set depth increases
