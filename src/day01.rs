@@ -1,10 +1,8 @@
 use crate::tools::read_lines;
 
-static INPUT: &str = "./inputs/day01.txt";
-
-pub fn run_all() -> String {
-    let part1 = part1(read_lines(INPUT));
-    let part2 = part2(read_lines(INPUT));
+pub fn run_all(input: &str) -> String {
+    let part1 = part1(read_lines(input));
+    let part2 = part2(read_lines(input));
 
     format!("
 Result part 1: {}

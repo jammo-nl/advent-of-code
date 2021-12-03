@@ -7,11 +7,25 @@ mod day03;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
+    let mut input: String = "".into();
+    let mut day = "";
 
-    let runner = match args[1].as_str() {
-        "day01" => day01::run_all(),
-        "day02" => day02::run_all(),
-        "day03" => day03::run_all(),
+    if args.len() > 1 {
+        day = &args[1];
+        input = format!("./inputs/{}.txt", day);
+    }
+    if args.len() > 2 {
+        // if we have a argument, use the testfile, this way I can
+        // switch between the real and test file for development / test puproses
+        input = format!("./inputs/{}_test.txt", day);
+    }
+
+    println!("running with file {}", input);
+
+    let runner = match day {
+        "day01" => day01::run_all(&input),
+        "day02" => day02::run_all(&input),
+        "day03" => day03::run_all(&input),
         _ => panic!("Incorrect input")
     };
 
