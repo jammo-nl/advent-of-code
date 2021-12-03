@@ -19,17 +19,14 @@ fn part1(input: Vec<u32>) -> u32 {
     // loop over all lines and keep track of all changes / counts to solve the puzzle
 
     for num in 0..input.len() {
-        let line = input.get(num).unwrap().clone();
+        let line = *input.get(num).unwrap();
 
-        //println!("current {} next {},{},{}")
-        match last_input {
-            Some(last) => {
-                if line > last {
-                    increases += 1;
-                }
+        if let Some(last) = last_input {
+            if line > last {
+                increases += 1;
             }
-            None => {}
         }
+        
         last_input = Some(line);
     }
 
@@ -43,21 +40,18 @@ fn part2(input: Vec<u32>) -> u32 {
     
     // loop over all lines and keep track of all changes / counts to solve the puzzle
     for num in 2..input.len() {
-        let line = input.get(num).unwrap().clone();
+        let line = *input.get(num).unwrap();
 
-        let prev1 = input.get(num-1).unwrap().clone();
-        let prev2 = input.get(num-2).unwrap().clone();
+        let prev1 = *input.get(num-1).unwrap();
+        let prev2 = *input.get(num-2).unwrap();
         let new_value = line+prev1+prev2;
 
         // check if the value is greater than the previous one (if there was one)
         // and update the pervious number.
-        match last_input_set {
-            Some(last) => {
-                if new_value > last {
-                    increases_sets += 1;
-                }
+        if let Some(last) = last_input_set {
+            if new_value > last {
+                increases_sets += 1;
             }
-            None => {}
         }
 
         last_input_set = Some(new_value);

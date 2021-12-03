@@ -60,7 +60,7 @@ pub fn part1(input: Vec<String>) -> i32 {
     let mut pos = Postition::new();
 
     for line in input {
-        let line_parts = line.split(" ").collect::<Vec<&str>>();
+        let line_parts = line.split(' ').collect::<Vec<&str>>();
         match line_parts[0] {
             "forward" => pos.forward(line_parts[1].parse::<i32>().unwrap()),
             "down" => pos.down(line_parts[1].parse::<i32>().unwrap()),
@@ -75,7 +75,7 @@ pub fn part2(input: Vec<String>) -> i32 {
     let mut pos = AimPostition::new();
 
     for line in input {
-        let line_parts = line.split(" ").collect::<Vec<&str>>();
+        let line_parts = line.split(' ').collect::<Vec<&str>>();
         match line_parts[0] {
             "forward" => pos.forward(line_parts[1].parse::<i32>().unwrap()),
             "down" => pos.down(line_parts[1].parse::<i32>().unwrap()),

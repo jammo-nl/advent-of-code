@@ -22,7 +22,7 @@ impl Diagnostics {
 
     fn add_bit_string(&mut self, bits: &str) {
         self.linecounter += 1;
-        let item: u32 = u32::from_str_radix(&bits, 2).unwrap();
+        let item: u32 = u32::from_str_radix(bits, 2).unwrap();
         self.numbers.push(item);
         for c in 0..bits.len() {
             if self.bitcounter.len() <= c {
@@ -48,15 +48,15 @@ impl Diagnostics {
         self.gamma() * self.epsilon()
     }
 
-    fn bit_filter(&self, numbers: &Vec<u32>, most_common: bool) -> u32 {
-        let mut m_numbers = numbers.clone();
+    fn bit_filter(&self, numbers: &[u32], most_common: bool) -> u32 {
+        let mut m_numbers = numbers.to_owned();
         let mut current_bit = self.bitcounter.len();
 
         while m_numbers.len() > 1 {
             // loop over all numbers to determine the number of times bit x is 1
             let mut counter = 0;
             for num in &m_numbers {
-                if num & (1 << current_bit-1) != 0 {
+                if num & (1 << (current_bit-1)) != 0 {
                     counter += 1;
                 }
             }
@@ -70,10 +70,10 @@ impl Diagnostics {
 
             // ddelete items from the list
             m_numbers.retain(|num| {
-                if num & (1 << current_bit-1) != 0 {
-                    return bit;
+                if num & (1 << (current_bit-1)) != 0 {
+                    bit
                 } else {
-                    return !bit;
+                    !bit
                 }
             });
 
