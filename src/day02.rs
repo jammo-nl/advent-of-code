@@ -12,14 +12,16 @@ Result part 2: {}
 
 struct Postition {
     fw: i32,
-    depth: i32
+    depth: i32,
+    aimed_depth: i32
 }
 impl Postition {
     fn new() -> Self {
-        Self{fw:0,depth:0}
+        Self{fw:0,depth:0,aimed_depth:0}
     }
     fn forward(&mut self, distance: i32) {
         self.fw += distance;
+        self.aimed_depth += distance*self.depth;
     }
     fn up(&mut self, distance: i32) {
         self.depth -= distance;
@@ -27,32 +29,11 @@ impl Postition {
     fn down(&mut self, distance: i32) {
         self.depth += distance;
     }
-    fn mutiplied(&self) -> i32 {
+    fn pos(&self) -> i32 {
         self.fw * self.depth
     }
-}
-
-struct AimPostition {
-    fw: i32,
-    aim: i32,
-    depth: i32
-}
-impl AimPostition {
-    fn new() -> Self {
-        Self{fw:0,aim:0,depth:0}
-    }
-    fn forward(&mut self, distance: i32) {
-        self.fw += distance;
-        self.depth += distance*self.aim;
-    }
-    fn up(&mut self, distance: i32) {
-        self.aim -= distance;
-    }
-    fn down(&mut self, distance: i32) {
-        self.aim += distance;
-    }
-    fn mutiplied(&self) -> i32 {
-        self.fw * self.depth
+    fn aimed_pos(&self) -> i32 {
+        self.fw * self.aimed_depth
     }
 }
 
@@ -69,10 +50,10 @@ pub fn part1(input: Vec<String>) -> i32 {
         }
     };
 
-    pos.mutiplied()
+    pos.pos()
 }
 pub fn part2(input: Vec<String>) -> i32 {
-    let mut pos = AimPostition::new();
+    let mut pos = Postition::new();
 
     for line in input {
         let line_parts = line.split(' ').collect::<Vec<&str>>();
@@ -84,7 +65,7 @@ pub fn part2(input: Vec<String>) -> i32 {
         }
     };
 
-    pos.mutiplied()
+    pos.aimed_pos()
 }
 
 #[cfg(test)]
