@@ -112,7 +112,7 @@ pub fn part2(input: Vec<String>) -> u32 {
 
 #[cfg(test)]
 mod tests {
-    static INPUT: &str = "./inputs/day02_test.txt";
+    static INPUT: &str = "./inputs/day05_test.txt";
     
     use super::*;
     #[test]
