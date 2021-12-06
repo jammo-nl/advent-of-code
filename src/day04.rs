@@ -60,7 +60,7 @@ impl BingoCard {
 }
 
 fn build_cards(input: &Vec<String>, all_numbers: &mut Vec<u32>, cards: &mut Vec<BingoCard>) {
-    let mut numbers: Vec<u32> = input[0].split(",").map(|i| i.parse::<u32>().unwrap()).collect();
+    let mut numbers: Vec<u32> = input[0].split(',').map(|i| i.parse::<u32>().unwrap()).collect();
     all_numbers.append(&mut numbers);
     all_numbers.reverse();
 
@@ -74,7 +74,7 @@ fn build_cards(input: &Vec<String>, all_numbers: &mut Vec<u32>, cards: &mut Vec<
         }
 
         // parse the line and add all numbers.. to this bingocard..
-        let mut line_numbers: Vec<u32> = input[line].trim().replace("  ", " ").split(" ").map(|i| i.parse::<u32>().unwrap()).collect();
+        let mut line_numbers: Vec<u32> = input[line].trim().replace("  ", " ").split(' ').map(|i| i.parse::<u32>().unwrap()).collect();
         card.numbers.append(&mut line_numbers);
     }
     cards.push(card);
@@ -90,7 +90,7 @@ pub fn part1(input: Vec<String>) -> u32 {
 
     // play the game and return the first winning board
     let mut winner = false;
-    while winner == false {
+    while !winner {
         let num = all_numbers.pop().unwrap();
         for card_idx in 0..cards.len() {
             winner = cards[card_idx].add_number(num);
@@ -104,7 +104,7 @@ pub fn part1(input: Vec<String>) -> u32 {
         if cards[winning_idx].set_numbers.contains(item) {
             return 0;
         }
-        return *item;
+        *item
     }).sum();
     
     sum * cards[winning_idx].set_numbers.last().unwrap()
@@ -141,7 +141,7 @@ pub fn part2(input: Vec<String>) -> u32 {
         if cards[0].set_numbers.contains(item) {
             return 0;
         }
-        return *item;
+        *item
     }).sum();
     
     sum * cards[0].set_numbers.last().unwrap()

@@ -11,7 +11,7 @@ Result part 2: {}
 }
 
 pub fn part1(input: Vec<String>) -> usize {
-    let mut fish: Vec<u8> = input[0].split(",").map(|num| num.parse::<u8>().unwrap()).collect();
+    let mut fish: Vec<u8> = input[0].split(',').map(|num| num.parse::<u8>().unwrap()).collect();
 
     // loop 80 days..
     for _ in 0..80 {
@@ -30,7 +30,7 @@ pub fn part1(input: Vec<String>) -> usize {
     fish.len()
 }
 pub fn part2(input: Vec<String>) -> usize {
-    let fish: Vec<u8> = input[0].split(",").map(|num| num.parse::<u8>().unwrap()).collect();
+    let fish: Vec<u8> = input[0].split(',').map(|num| num.parse::<u8>().unwrap()).collect();
     let mut fishes: [usize;9] = [0,0,0,0,0,0,0,0,0];
 
     // keep track of number of fishes by lifetime
@@ -48,7 +48,6 @@ pub fn part2(input: Vec<String>) -> usize {
         fishes[8] = f as usize;
     }
 
-    println!("{:?}", fishes);
     fishes.iter().sum()
 }
 

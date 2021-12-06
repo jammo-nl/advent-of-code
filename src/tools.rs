@@ -16,6 +16,6 @@ pub fn read_lines<T>(filename: &str) -> Vec<T>
 
 // return the file content as a string
 pub fn read_file(filename: &str) -> String {
-    let content = fs::read_to_string(filename).expect("Something went wrong reading the file");
-    content
+    
+    fs::read_to_string(filename).expect("Something went wrong reading the file")
 }
