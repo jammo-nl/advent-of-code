@@ -14,6 +14,19 @@ pub fn read_lines<T>(filename: &str) -> Vec<T>
     lines
 }
 
+// return the file content as a vector of T (Where T can be any type that implements FromStr)
+pub fn split_line<T>(line: &str, split: &str) -> Vec<T>
+    where T: FromStr {
+    let mut data: Vec<T> = vec!();
+    for item in line.split(split) {
+        if let Ok(value) = item.parse::<T>() {
+            data.push(value);
+        }
+    }
+
+    data
+}
+
 // return the file content as a string
 pub fn read_file(filename: &str) -> String {
     

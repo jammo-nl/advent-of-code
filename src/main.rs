@@ -7,6 +7,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day06;
+mod day07;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -32,6 +33,7 @@ fn main() {
         "day04" => day04::run_all(&input),
         "day05" => day05::run_all(&input),
         "day06" => day06::run_all(&input),
+        "day07" => day07::run_all(&input),
         _ => panic!("Incorrect input")
     };
 
