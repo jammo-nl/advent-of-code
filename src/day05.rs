@@ -75,7 +75,6 @@ impl Grid {
         // mind the fact that we only allow 45 degree lines!
         let (x1, x2, y1, y2) = self.get_line_coordinates(line);
 
-        println!("{}.{} - {}.{}", x1, y1, x2, y2);
         if i32::abs(y2 as i32 - y1 as i32) == i32::abs(x2  as i32 - x1  as i32) {
             for c in 0..=i32::abs(y2 as i32 - y1 as i32) as u32 {
                 let coordinate = format!("{}.{}", self.c(c, x1, x2), self.c(c, y1, y2));
