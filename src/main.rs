@@ -1,4 +1,5 @@
 use std::env;
+use std::time::Instant;
 mod tools;
 
 mod day01;
@@ -10,6 +11,8 @@ mod day06;
 mod day07;
 
 fn main() {
+    let now = Instant::now();
+
     let args: Vec<String> = env::args().collect();
     let mut input: String = "".into();
     let mut day = "";
@@ -37,5 +40,6 @@ fn main() {
         _ => panic!("Incorrect input")
     };
 
+    println!("\nruntime {} ms", now.elapsed().as_millis());
     println!("{}", runner);
 }
