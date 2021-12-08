@@ -10,6 +10,7 @@ mod day04;
 mod day05;
 mod day06;
 mod day07;
+mod day08;
 
 fn main() {
     let now = Instant::now();
@@ -22,6 +23,7 @@ fn main() {
         ("day05", day05::run_all),
         ("day06", day06::run_all),
         ("day07", day07::run_all),
+        ("day08", day08::run_all),
     ]);
 
     let args: Vec<String> = env::args().collect();
