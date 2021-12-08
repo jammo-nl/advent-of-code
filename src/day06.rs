@@ -16,12 +16,12 @@ pub fn part1(input: Vec<String>) -> usize {
     // loop 80 days..
     for _ in 0..80 {
         let mut new_fish: Vec<u8> = vec!();
-        for i in 0..fish.len() {
-            if fish[i] == 0 {
+        for curr_fish in &mut fish {
+            if *curr_fish == 0 {
                 new_fish.push(8);
-                fish[i] = 6;
+                *curr_fish = 6;
             } else {
-                fish[i] -= 1;
+                *curr_fish -= 1;
             }
         }
         fish.append(&mut new_fish);

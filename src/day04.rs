@@ -59,22 +59,22 @@ impl BingoCard {
     }
 }
 
-fn build_cards(input: &Vec<String>, all_numbers: &mut Vec<u32>, cards: &mut Vec<BingoCard>) {
+fn build_cards(input: &[String], all_numbers: &mut Vec<u32>, cards: &mut Vec<BingoCard>) {
     let mut numbers: Vec<u32> = input[0].split(',').map(|i| i.parse::<u32>().unwrap()).collect();
     all_numbers.append(&mut numbers);
     all_numbers.reverse();
 
     // loop over the file, filling in all cards
     let mut card: BingoCard = BingoCard::new();
-    for line in 2..input.len() {
-        if input[line].is_empty() {
+    for line in input.iter().skip(2) {
+        if line.is_empty() {
             cards.push(card);
             card = BingoCard::new();
             continue;
         }
 
         // parse the line and add all numbers.. to this bingocard..
-        let mut line_numbers: Vec<u32> = input[line].trim().replace("  ", " ").split(' ').map(|i| i.parse::<u32>().unwrap()).collect();
+        let mut line_numbers: Vec<u32> = line.trim().replace("  ", " ").split(' ').map(|i| i.parse::<u32>().unwrap()).collect();
         card.numbers.append(&mut line_numbers);
     }
     cards.push(card);
@@ -92,8 +92,8 @@ pub fn part1(input: Vec<String>) -> u32 {
     let mut winner = false;
     while !winner {
         let num = all_numbers.pop().unwrap();
-        for card_idx in 0..cards.len() {
-            winner = cards[card_idx].add_number(num);
+        for (card_idx, card) in cards.iter_mut().enumerate() {
+            winner = card.add_number(num);
             if winner {
                 winning_idx = card_idx;
                 break;

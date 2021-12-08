@@ -107,13 +107,13 @@ impl SegmentDisplay {
         self.map.insert(self.num0.iter().collect(), "0".into());
     }
 
-    fn return_containing(&self, list: &mut Vec<Vec<char>>, test: &Vec<char>) -> Vec<char> {
+    fn return_containing(&self, list: &mut Vec<Vec<char>>, test: &[char]) -> Vec<char> {
         let mut ret: Vec<char> = vec!();
         let mut idx = 0;
         for (num, vec) in list.iter().enumerate() {
             let mut contains_all = true;
             for item in test {
-                if !vec.contains(&item) {
+                if !vec.contains(item) {
                     contains_all = false;
                 }
             }
@@ -133,7 +133,7 @@ impl SegmentDisplay {
         let mut result: String = "".into();
         for num in input.iter() {
             let mut item = num.chars().collect::<Vec<char>>();
-            item.sort();
+            item.sort_unstable();
             result += &self.map[&item.iter().collect::<String>()];
         }
 
@@ -145,9 +145,9 @@ pub fn part1(input: Vec<String>) -> u32 {
     let mut total:u32 = 0;
     for line in input {
         let (_, output) = line.split_once(" | ").unwrap();
-        let digits = output.split(" ")
+        let digits = output.split(' ')
             .filter(|item| {item.len() == 2 || item.len() == 3 || item.len() == 4 || item.len() == 7})
-            .collect::<Vec<&str>>().len();
+            .count();
         total += digits as u32;
     }
 
@@ -158,8 +158,8 @@ pub fn part2(input: Vec<String>) -> u32 {
     
     for line in input {
         let (input, output) = line.split_once(" | ").unwrap();
-        let input: Vec<&str> = input.split(" ").collect();
-        let output: Vec<&str> = output.split(" ").collect();
+        let input: Vec<&str> = input.split(' ').collect();
+        let output: Vec<&str> = output.split(' ').collect();
 
         // process the display
         let mut display = SegmentDisplay::new();
