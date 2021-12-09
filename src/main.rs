@@ -11,6 +11,7 @@ mod day05;
 mod day06;
 mod day07;
 mod day08;
+mod day09;
 
 fn main() {
     let now = Instant::now();
@@ -24,6 +25,7 @@ fn main() {
         ("day06", day06::run_all),
         ("day07", day07::run_all),
         ("day08", day08::run_all),
+        ("day09", day09::run_all),
     ]);
 
     let args: Vec<String> = env::args().collect();
@@ -39,9 +41,6 @@ fn main() {
         // switch between the real and test file for development / test puproses
         input = "./inputs/{DAY}_test.txt";
     }
-
-    println!("running with file {}", input);
-
 
     let mut result: String = "".into();
     if day == "all" {
