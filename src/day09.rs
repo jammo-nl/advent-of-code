@@ -144,21 +144,3 @@ pub fn part2(input: Vec<String>) -> u32 {
     basins.sort_by(|v1, v2| v2.len().cmp(&v1.len()));
     basins[0].len() as u32 * basins[1].len() as u32 * basins[2].len() as u32
 }
-
-#[cfg(test)]
-mod tests {
-    static INPUT: &str = "./inputs/day09_test.txt";
-    
-    use super::*;
-    #[test]
-    fn test_part1() {
-        let output = part1(read_lines(INPUT));
-        assert_eq!(output, 15)
-    }
-
-    #[test]
-    fn test_part2() {
-        let output = part2(read_lines(INPUT));
-        assert_eq!(output, 1134)
-    }
-}

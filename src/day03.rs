@@ -114,21 +114,3 @@ pub fn part2(input: Vec<String>) -> u32 {
 
     diag.life_support_rating()
 }
-
-#[cfg(test)]
-mod tests {
-    static INPUT: &str = "./inputs/day03_test.txt";
-    
-    use super::*;
-    #[test]
-    fn test_part1() {
-        let output = part1(read_lines(INPUT));
-        assert_eq!(output, 198)
-    }
-
-    #[test]
-    fn test_part2() {
-        let output = part2(read_lines(INPUT));
-        assert_eq!(output, 230)
-    }
-}

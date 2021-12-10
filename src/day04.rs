@@ -146,21 +146,3 @@ pub fn part2(input: Vec<String>) -> u32 {
     
     sum * cards[0].set_numbers.last().unwrap()
 }
-
-#[cfg(test)]
-mod tests {
-    static INPUT: &str = "./inputs/day04_test.txt";
-    
-    use super::*;
-    #[test]
-    fn test_part1() {
-        let output = part1(read_lines(INPUT));
-        assert_eq!(output, 4512)
-    }
-
-    #[test]
-    fn test_part2() {
-        let output = part2(read_lines(INPUT));
-        assert_eq!(output, 1924)
-    }
-}

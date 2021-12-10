@@ -67,21 +67,3 @@ pub fn part2(input: Vec<String>) -> i32 {
 
     pos.aimed_pos()
 }
-
-#[cfg(test)]
-mod tests {
-    static INPUT: &str = "./inputs/day02_test.txt";
-    
-    use super::*;
-    #[test]
-    fn test_part1() {
-        let output = part1(read_lines(INPUT));
-        assert_eq!(output, 150)
-    }
-
-    #[test]
-    fn test_part2() {
-        let output = part2(read_lines(INPUT));
-        assert_eq!(output, 900)
-    }
-}

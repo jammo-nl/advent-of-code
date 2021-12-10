@@ -59,21 +59,3 @@ fn part2(input: Vec<u32>) -> u32 {
 
     increases_sets
 }
-
-#[cfg(test)]
-mod tests {
-    static INPUT: &str = "./inputs/day01_test.txt";
-
-    use super::*;
-    #[test]
-    fn test_part1() {
-        let output = part1(read_lines(INPUT));
-        assert_eq!(output, 7)
-    }
-
-    #[test]
-    fn test_part2() {
-        let output = part2(read_lines(INPUT));
-        assert_eq!(output, 5)
-    }
-}

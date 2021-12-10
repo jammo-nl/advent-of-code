@@ -61,25 +61,3 @@ pub fn part2(input: Vec<u32>) -> u32 {
     
     smallest_path
 }
-
-#[cfg(test)]
-mod tests {
-    static INPUT: &str = "./inputs/day07_test.txt";
-    
-    use super::*;
-    #[test]
-    fn test_part1() {
-        let data: Vec<String> = read_lines(INPUT);
-        let output = part1(split_line(&data[0], ","));
-        
-        assert_eq!(output, 37)
-    }
-
-    #[test]
-    fn test_part2() {
-        let data: Vec<String> = read_lines(INPUT);
-        let output = part2(split_line(&data[0], ","));
-
-        assert_eq!(output, 168)
-    }
-}
