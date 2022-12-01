@@ -1,5 +1,4 @@
 use clap::{Arg, Command};
-use std::collections::HashMap;
 use std::env;
 use std::fs;
 use std::time::{Duration, Instant};
@@ -57,7 +56,7 @@ fn main() {
 
     let contents = fs::read_to_string(filename).expect("Should have been able to read the file");
 
-    let day_fn = AoC2022::get_day(day);
+    let day_fn = aoc2022::get_day(day);
 
     let pt1 = MeasureTime::start();
     println!("----- part 1");
