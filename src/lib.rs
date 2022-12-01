@@ -1,12 +1,13 @@
 pub fn noop(_inp: String) {
     println!("Not implemented");
 }
-
 pub type DayFn = fn(String);
+
+mod day01;
 
 pub fn get_day(day: u32) -> (DayFn, DayFn) {
     return match day {
-        1 => (noop, noop),
+        1 => (day01::part1, day01::part2),
         2 => (noop, noop),
         3 => (noop, noop),
         4 => (noop, noop),
