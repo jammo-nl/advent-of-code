@@ -65,7 +65,7 @@ fn main() {
 
     println!("----- part 2");
     let pt2 = MeasureTime::start();
-    day_fn.1(contents.clone());
+    day_fn.1(contents);
     println!("----- end part two in {}", pt2.duration());
 
     println!("Finished in {}", total.duration());
