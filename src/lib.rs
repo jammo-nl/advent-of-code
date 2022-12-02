@@ -4,11 +4,12 @@ pub fn noop(_inp: String) {
 pub type DayFn = fn(String);
 
 mod day01;
+mod day02;
 
 pub fn get_day(day: u32) -> (DayFn, DayFn) {
-    return match day {
+    match day {
         1 => (day01::part1, day01::part2),
-        2 => (noop, noop),
+        2 => (day02::part1, day02::part2),
         3 => (noop, noop),
         4 => (noop, noop),
         5 => (noop, noop),
@@ -34,7 +35,7 @@ pub fn get_day(day: u32) -> (DayFn, DayFn) {
         25 => (noop, noop),
         _ => {
             println!("Unknown day: {}", day);
-            return (noop, noop);
+            (noop, noop)
         }
-    };
+    }
 }
