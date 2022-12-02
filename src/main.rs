@@ -15,11 +15,11 @@ impl MeasureTime {
     pub fn duration(&self) -> String {
         let duration = self.start.elapsed();
         if duration < Duration::from_millis(1) {
-            format!("{:.2}us", duration.as_micros())
+            format!("{}us", duration.as_micros())
         } else if duration < Duration::from_secs(1) {
-            format!("{:.2}ms", duration.as_millis())
+            format!("{:.3}ms", duration.as_micros() as f64 / 1000.0)
         } else {
-            format!("{:.2}s", duration.as_secs())
+            format!("{:.3}s", duration.as_millis() as f64 / 1000.0)
         }
     }
 }
