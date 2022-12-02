@@ -34,10 +34,17 @@ fn main() {
                 .required(false)
                 .action(clap::ArgAction::SetTrue),
         )
+        .arg(
+            Arg::new("large")
+                .short('l')
+                .required(false)
+                .action(clap::ArgAction::SetTrue),
+        )
         .arg(Arg::new("day").required(true))
         .get_matches();
 
     let test_mode = matches.get_one::<bool>("test").unwrap_or(&false);
+    let large_mode = matches.get_one::<bool>("large").unwrap_or(&false);
     let day = match matches.get_one::<String>("day") {
         Some(str_data) => str_data.parse::<u32>().unwrap(),
         None => panic!("Invalid day given"),
@@ -49,7 +56,10 @@ fn main() {
     let cwd = env::current_dir().unwrap();
     let filename = match test_mode {
         true => format!("day{:02}_test.txt", day),
-        false => format!("day{:02}.txt", day),
+        false => match large_mode {
+            true => format!("day{:02}_large.txt", day),
+            false => format!("day{:02}.txt", day),
+        },
     };
     let filename = cwd.join("inputs").join(filename);
     println!("Reading file {}", filename.to_str().unwrap());
