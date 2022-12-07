@@ -34,49 +34,53 @@ fn main() {
                 .required(false)
                 .action(clap::ArgAction::SetTrue),
         )
-        .arg(
-            Arg::new("large")
-                .short('l')
-                .required(false)
-                .action(clap::ArgAction::SetTrue),
-        )
-        .arg(Arg::new("day").required(true))
+        .arg(Arg::new("day").required(false))
         .get_matches();
 
     let test_mode = matches.get_one::<bool>("test").unwrap_or(&false);
-    let large_mode = matches.get_one::<bool>("large").unwrap_or(&false);
+    let mut all_days = false;
     let day = match matches.get_one::<String>("day") {
         Some(str_data) => str_data.parse::<u32>().unwrap(),
-        None => panic!("Invalid day given"),
+        None => {
+            all_days = true;
+            0
+        }
     };
 
-    println!("Starting with Test: {:?} for day {:02}", test_mode, day);
+    let mut start = day;
+    let mut end = day;
+    if all_days {
+        start = 1;
+        end = 25;
+    }
+
     let total = MeasureTime::start();
-
-    let cwd = env::current_dir().unwrap();
-    let filename = match test_mode {
-        true => format!("day{:02}_test.txt", day),
-        false => match large_mode {
-            true => format!("day{:02}_large.txt", day),
+    for day in start..=end {
+        let cwd = env::current_dir().unwrap();
+        let filename = match test_mode {
+            true => format!("day{:02}_test.txt", day),
             false => format!("day{:02}.txt", day),
-        },
-    };
-    let filename = cwd.join("inputs").join(filename);
-    println!("Reading file {}", filename.to_str().unwrap());
+        };
+        let filename = cwd.join("inputs").join(filename);
+        let contents = match fs::read_to_string(filename) {
+            Ok(data) => data,
+            Err(_) => break,
+        };
 
-    let contents = fs::read_to_string(filename).expect("Should have been able to read the file");
+        let day_fn = aoc2022::get_day(day);
 
-    let day_fn = aoc2022::get_day(day);
-
-    let pt1 = MeasureTime::start();
-    println!("----- part 1");
-    day_fn.0(contents.clone());
-    println!("----- end part one in {}", pt1.duration());
-
-    println!("----- part 2");
-    let pt2 = MeasureTime::start();
-    day_fn.1(contents);
-    println!("----- end part two in {}", pt2.duration());
-
+        let pt1 = MeasureTime::start();
+        println!("Day {}", day);
+        print!("----- part 1:\t");
+        day_fn.0(contents.clone());
+        println!("----- end part one in {}", pt1.duration());
+        println!("");
+        print!("----- part 2:\t");
+        let pt2 = MeasureTime::start();
+        day_fn.1(contents);
+        println!("----- end part two in {}", pt2.duration());
+    }
+    println!("");
     println!("Finished in {}", total.duration());
+    println!("");
 }
