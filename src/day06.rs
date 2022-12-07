@@ -8,7 +8,7 @@ pub fn part1(input: String) {
 
         curr = curr.into_iter().unique().collect();
         if curr.len() == 4 {
-            println!("Result = {:?}", start + 4);
+            println!("Result: {:?}", start + 4);
             break;
         }
 
@@ -24,7 +24,7 @@ pub fn part2(input: String) {
 
         curr = curr.into_iter().unique().collect();
         if curr.len() == 14 {
-            println!("Result = {:?}", start + 14);
+            println!("Result: {:?}", start + 14);
             break;
         }
 
