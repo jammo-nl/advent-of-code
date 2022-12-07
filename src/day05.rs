@@ -1,5 +1,3 @@
-use array_tool::vec::Intersect;
-
 pub fn part1(input: String) {
     let stacks = parse_stack_file(input, false);
     println!("result: {}", stacks.get_top_crates());
