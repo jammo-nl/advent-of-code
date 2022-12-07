@@ -8,6 +8,7 @@ mod day02;
 mod day03;
 mod day04;
 mod day05;
+mod day06;
 
 pub fn get_day(day: u32) -> (DayFn, DayFn) {
     match day {
@@ -16,7 +17,7 @@ pub fn get_day(day: u32) -> (DayFn, DayFn) {
         3 => (day03::part1, day03::part2),
         4 => (day04::part1, day04::part2),
         5 => (day05::part1, day05::part2),
-        6 => (noop, noop),
+        6 => (day06::part1, day06::part2),
         7 => (noop, noop),
         8 => (noop, noop),
         9 => (noop, noop),
