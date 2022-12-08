@@ -1,11 +1,11 @@
-pub fn part1(input: String) {
+pub fn part1(input: String) -> String {
     let result = parse_code(input, false);
-    println!("result: {}", result.total_score);
+    format!("{}", result.total_score)
 }
 
-pub fn part2(input: String) {
+pub fn part2(input: String) -> String {
     let result = parse_code(input, true);
-    println!("result: {}", result.total_score);
+    format!("{}", result.total_score)
 }
 
 static SCORE_ROCK: u8 = 1;

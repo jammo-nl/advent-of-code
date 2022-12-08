@@ -1,11 +1,11 @@
-pub fn part1(input: String) {
+pub fn part1(input: String) -> String {
     let stacks = parse_stack_file(input, false);
-    println!("result: {}", stacks.get_top_crates());
+    format!("{}", stacks.get_top_crates())
 }
 
-pub fn part2(input: String) {
+pub fn part2(input: String) -> String {
     let stacks = parse_stack_file(input, true);
-    println!("result: {}", stacks.get_top_crates());
+    format!("{}", stacks.get_top_crates())
 }
 
 struct Stacks {
