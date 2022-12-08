@@ -1,7 +1,7 @@
-pub fn noop(_inp: String) {
-    println!("Not implemented");
+pub fn noop(_inp: String) -> String {
+    format!("Not implemented")
 }
-pub type DayFn = fn(String);
+pub type DayFn = fn(String) -> String;
 
 mod day01;
 mod day02;

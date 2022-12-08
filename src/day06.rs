@@ -1,6 +1,6 @@
 use itertools::Itertools;
 
-pub fn part1(input: String) {
+pub fn part1(input: String) -> String {
     let mut start = 0;
     let input = input.as_bytes();
     loop {
@@ -8,15 +8,14 @@ pub fn part1(input: String) {
 
         curr = curr.into_iter().unique().collect();
         if curr.len() == 4 {
-            println!("Result: {:?}", start + 4);
-            break;
+            return format!("{:?}", start + 4);
         }
 
         start += 1;
     }
 }
 
-pub fn part2(input: String) {
+pub fn part2(input: String) -> String {
     let mut start = 0;
     let input = input.as_bytes();
     loop {
@@ -24,8 +23,7 @@ pub fn part2(input: String) {
 
         curr = curr.into_iter().unique().collect();
         if curr.len() == 14 {
-            println!("Result: {:?}", start + 14);
-            break;
+            return format!("{:?}", start + 14);
         }
 
         start += 1;

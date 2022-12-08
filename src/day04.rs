@@ -1,13 +1,13 @@
 use array_tool::vec::Intersect;
 
-pub fn part1(input: String) {
+pub fn part1(input: String) -> String {
     let sections = parse_sections(input);
-    println!("result: {}", sections.get_contained());
+    format!("{}", sections.get_contained())
 }
 
-pub fn part2(input: String) {
+pub fn part2(input: String) -> String {
     let sections = parse_sections(input);
-    println!("result: {}", sections.get_overlaps());
+    format!("{}", sections.get_overlaps())
 }
 
 struct Sections {

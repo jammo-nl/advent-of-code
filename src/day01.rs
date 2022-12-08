@@ -1,17 +1,17 @@
-pub fn part1(input: String) {
+pub fn part1(input: String) -> String {
     let mut elves = parse_elves(input);
     // sort elves by the total_calories and print the result
     elves.sort_by(|a, b| b.total_calories.cmp(&a.total_calories));
-    println!("result: {}", elves.first().unwrap().total_calories);
+    format!("{}", elves.first().unwrap().total_calories)
 }
 
-pub fn part2(input: String) {
+pub fn part2(input: String) -> String {
     let mut elves = parse_elves(input);
     // sort elves by the total_calories and sum the result of the first 3
     elves.sort_by(|a, b| b.total_calories.cmp(&a.total_calories));
     elves.truncate(3);
     let total: u64 = elves.iter().map(|x| x.total_calories).sum();
-    println!("result: {}", total);
+    format!("{}", total)
 }
 
 struct Elf {

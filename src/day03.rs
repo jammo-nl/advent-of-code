@@ -1,20 +1,20 @@
 use array_tool::vec::Intersect;
 
-pub fn part1(input: String) {
+pub fn part1(input: String) -> String {
     let backpacks = parse_backpacks(input);
-    println!(
-        "result: {}",
+    format!(
+        "{}",
         backpacks.get_score_for_items(backpacks.get_double_items())
-    );
+    )
 }
 
-pub fn part2(input: String) {
+pub fn part2(input: String) -> String {
     let backpacks = parse_backpacks(input);
 
-    println!(
-        "result: {}",
+    format!(
+        "{}",
         backpacks.get_score_for_items(backpacks.get_badge_items())
-    );
+    )
 }
 
 struct BackPacks {

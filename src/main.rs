@@ -72,12 +72,12 @@ fn main() {
         let pt1 = MeasureTime::start();
         println!("Day {}", day);
         print!("----- part 1:\t");
-        day_fn.0(contents.clone());
+        println!("{}", day_fn.0(contents.clone()));
         println!("----- end part one in {}", pt1.duration());
         println!("");
         print!("----- part 2:\t");
         let pt2 = MeasureTime::start();
-        day_fn.1(contents);
+        println!("{}", day_fn.1(contents.clone()));
         println!("----- end part two in {}", pt2.duration());
     }
     println!("");

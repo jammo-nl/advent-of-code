@@ -37,23 +37,23 @@ impl FsEntry {
     }
 }
 
-pub fn part1(input: String) {
+pub fn part1(input: String) -> String {
     let fs = parse_fs(input);
     let mut data_map = HashMap::new();
     fs.borrow()
         .get_dir_sizes("/".to_string(), "".to_string(), &mut data_map);
 
-    println!(
-        "Result: {}",
+    format!(
+        "{}",
         data_map
             .values()
             .filter(|i| *i < &100000u32)
             .cloned()
             .sum::<u32>()
-    );
+    )
 }
 
-pub fn part2(input: String) {
+pub fn part2(input: String) -> String {
     let fs = parse_fs(input);
     let mut data_map = HashMap::new();
     fs.borrow()
@@ -71,7 +71,7 @@ pub fn part2(input: String) {
         .sorted()
         .collect::<Vec<u32>>()[0];
 
-    println!("Result: {result}");
+    format!("{result}")
 }
 
 fn parse_fs(input: String) -> Rc<RefCell<FsEntry>> {
