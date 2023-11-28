@@ -1,2 +1,3 @@
 # advent-of-code
-Wrapper repository for advend of code
+Advend of code in RUST
+
