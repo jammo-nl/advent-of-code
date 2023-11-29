@@ -23,5 +23,5 @@ if [[ -z "${AOC_SESSION-""}" ]]; then
 fi
 
 URL="https://adventofcode.com/$1/day/$(("10#$2" + 0))/input"
-curl "$URL" --cookie "session=$AOC_SESSION" -s | tee "$SCRIPT_DIR/$1/inputs/day$2.txt"
+curl "$URL" --cookie "session=$AOC_SESSION" -s | tee "$SCRIPT_DIR/aoc$1/inputs/day$2.txt"
 
