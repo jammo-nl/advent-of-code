@@ -61,7 +61,7 @@ fn main() {
             true => format!("day{:02}_test.txt", day),
             false => format!("day{:02}.txt", day),
         };
-        let filename = cwd.join("inputs").join(filename);
+        let filename = cwd.join("aoc2022/inputs").join(filename);
         let contents = match fs::read_to_string(filename) {
             Ok(data) => data,
             Err(_) => break,

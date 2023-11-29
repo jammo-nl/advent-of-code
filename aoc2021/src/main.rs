@@ -1,6 +1,6 @@
+use std::collections::BTreeMap;
 use std::env;
 use std::time::Instant;
-use std::collections::BTreeMap;
 mod tools;
 
 mod day01;
@@ -36,25 +36,27 @@ fn main() {
 
     if args.len() > 1 {
         day = &args[1];
-        input = "./inputs/{DAY}.txt";
+        input = "./aoc2021/inputs/{DAY}.txt";
     }
     if args.len() > 2 {
         // if we have a argument, use the testfile, this way I can
         // switch between the real and test file for development / test puproses
-        input = "./inputs/{DAY}_test.txt";
+        input = "./aoc2021/inputs/{DAY}_test.txt";
     }
 
     let mut result: String = "".into();
     if day == "all" {
         for (day, func) in days {
-            let file = input.to_string().replace("{DAY}", day);
+            //let day = format!("{:02}", day.parse::<i32>().unwrap());
+            let file = input.to_string().replace("{DAY}", &day);
             println!("running day {} with file {}", day, file);
             result = format!("{}\n{}:{}", result, day, func(&file));
         }
     } else {
-        let file = input.to_string().replace("{DAY}", day);
+        let day = format!("day{:02}", day.parse::<i32>().unwrap());
+        let file = input.to_string().replace("{DAY}", &day);
         println!("running day {} with file {}", day, file);
-        result = days[day](&file);
+        result = days[day.as_str()](&file);
     }
 
     println!("{}", result);
