@@ -34,6 +34,9 @@ fn main() {
     let mut input: &str = "";
     let mut day = "";
 
+    if args.len() == 1 {
+        input = "./aoc2021/inputs/{DAY}.txt";
+    }
     if args.len() > 1 {
         day = &args[1];
         input = "./aoc2021/inputs/{DAY}.txt";
@@ -45,10 +48,10 @@ fn main() {
     }
 
     let mut result: String = "".into();
-    if day == "all" {
+    if day.is_empty() {
         for (day, func) in days {
             //let day = format!("{:02}", day.parse::<i32>().unwrap());
-            let file = input.to_string().replace("{DAY}", &day);
+            let file = input.to_string().replace("{DAY}", day);
             println!("running day {} with file {}", day, file);
             result = format!("{}\n{}:{}", result, day, func(&file));
         }
