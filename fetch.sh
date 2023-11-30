@@ -22,6 +22,7 @@ if [[ -z "${AOC_SESSION-""}" ]]; then
   exit 1
 fi
 
+mkdir -p "$SCRIPT_DIR/aoc$1/inputs"
 URL="https://adventofcode.com/$1/day/$(("10#$2" + 0))/input"
 curl "$URL" --cookie "session=$AOC_SESSION" -s | tee "$SCRIPT_DIR/aoc$1/inputs/day$2.txt"
 
