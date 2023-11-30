@@ -24,6 +24,8 @@ fi
 
 ## copy init templates
 cp templates/day.rs aoc$1/src/bin/day$2.rs
+sed -i "s/{YEAR}/$1/" aoc$1/src/bin/day$2.rs
+sed -i "s/{DAY}/$2/" aoc$1/src/bin/day$2.rs
 
 ## download input files
 AOC_SESSION=$AOC_SESSION ./fetch.sh $1 $2
