@@ -21,4 +21,6 @@ cp templates/Cargo.toml aoc$1/Cargo.toml
 cp templates/lib.rs aoc$1/src/lib.rs
 cp templates/main.rs aoc$1/src/main.rs
 sed -i "s/{YEAR}/$1/" aoc$1/Cargo.toml
+sed -i "s/{YEAR}/$1/" aoc$1/src/main.rs
+
 
