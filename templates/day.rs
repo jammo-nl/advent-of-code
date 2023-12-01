@@ -8,10 +8,18 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_solution() -> Result<(), String> {
+    fn test_solution1() -> Result<(), String> {
         let test_input = r#""#;
 
-        assert_eq!(solution(test_input), (10, 10));
+        assert_eq!(solution(test_input.trim()).0, 0);
+        Ok(())
+    }
+
+    #[test]
+    fn test_solution2() -> Result<(), String> {
+        let test_input = r#""#;
+
+        assert_eq!(solution(test_input.trim()).1, 0);
         Ok(())
     }
 }
