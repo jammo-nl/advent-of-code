@@ -16,7 +16,7 @@ pub fn main(attr: TokenStream, item: TokenStream) -> TokenStream {
         #solution
         fn main() {
             // get file content and add timing
-            let (p1, p2) = solution(INPUT);
+            let (p1, p2) = solution(INPUT.trim());
             println!("Part one: {}", p1);
             println!("Part two: {}", p2);
       }
