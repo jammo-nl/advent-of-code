@@ -18,7 +18,7 @@ fn main() {
 
     for day in run {
         let cmd = Command::new("cargo")
-            .args(["run", "--release", "--bin", &day])
+            .args(["run", "--release", "-p", "aoc{YEAR}", "--bin", &day])
             .output()
             .unwrap();
 
