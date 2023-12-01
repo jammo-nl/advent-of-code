@@ -9,7 +9,7 @@ mod tests {
 
     #[test]
     fn test_solution() -> Result<(), String> {
-        let test_input = "";
+        let test_input = r#""#;
 
         assert_eq!(solution(test_input), (10, 10));
         Ok(())
