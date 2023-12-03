@@ -20,5 +20,5 @@ Init a new year
 ```
 Init a new day (creates a new day binary source and downloads the input file)
 ```
-./init_day.sh {YEAR} {DAY}
+AOC_SESSION={SESSION} ./init_day.sh {YEAR} {DAY}
 ```
