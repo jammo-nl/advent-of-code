@@ -7,19 +7,17 @@ fn solution(input: &str) -> (usize, usize) {
 mod tests {
     use super::*;
 
+    const TEST_INPUT: &str = r#""#;
+
     #[test]
     fn test_solution1() -> Result<(), String> {
-        let test_input = r#""#;
-
-        assert_eq!(solution(test_input.trim()).0, 0);
+        assert_eq!(solution(TEST_INPUT.trim()).0, 0);
         Ok(())
     }
 
     #[test]
     fn test_solution2() -> Result<(), String> {
-        let test_input = r#""#;
-
-        assert_eq!(solution(test_input.trim()).1, 0);
+        assert_eq!(solution(TEST_INPUT.trim()).1, 0);
         Ok(())
     }
 }

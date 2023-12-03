@@ -112,9 +112,7 @@ fn solution(input: &str) -> (usize, usize) {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_solution1() -> Result<(), String> {
-        let test_input = r#"467..114..
+    const TEST_INPUT: &str = r#"467..114..
 ...*......
 ..35..633.
 ......#...
@@ -125,24 +123,15 @@ mod tests {
 ...$.*....
 .664.598.."#;
 
-        assert_eq!(solution(test_input.trim()).0, 4361);
+    #[test]
+    fn test_solution1() -> Result<(), String> {
+        assert_eq!(solution(TEST_INPUT.trim()).0, 4361);
         Ok(())
     }
 
     #[test]
     fn test_solution2() -> Result<(), String> {
-        let test_input = r#"467..114..
-...*......
-..35..633.
-......#...
-617*......
-.....+.58.
-..592.....
-......755.
-...$.*....
-.664.598.."#;
-
-        assert_eq!(solution(test_input.trim()).1, 467835);
+        assert_eq!(solution(TEST_INPUT.trim()).1, 467835);
         Ok(())
     }
 }
