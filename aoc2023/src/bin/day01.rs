@@ -62,19 +62,11 @@ fn solution(input: &str) -> (usize, usize) {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_solution1() -> Result<(), String> {
-        let test_input = r#"1abc2
+    const TEST_INPUT1: &str = r#"1abc2
                             pqr3stu8vwx
                             a1b2c3d4e5f
                             treb7uchet"#;
-
-        assert_eq!(solution(test_input.trim()).0, 142);
-        Ok(())
-    }
-    #[test]
-    fn test_solution2() -> Result<(), String> {
-        let test_input = r#"two1nine
+    const TEST_INPUT2: &str = r#"two1nine
                             eightwothree
                             abcone2threexyz
                             xtwone3four
@@ -82,7 +74,14 @@ mod tests {
                             zoneight234
                             7pqrstsixteen"#;
 
-        assert_eq!(solution(test_input.trim()).1, 281);
+    #[test]
+    fn test_solution1() -> Result<(), String> {
+        assert_eq!(solution(TEST_INPUT1.trim()).0, 142);
+        Ok(())
+    }
+    #[test]
+    fn test_solution2() -> Result<(), String> {
+        assert_eq!(solution(TEST_INPUT2.trim()).1, 281);
         Ok(())
     }
 }
