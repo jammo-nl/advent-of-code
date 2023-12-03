@@ -10,7 +10,7 @@ fn overlaps(x1: usize, x2: usize, y1: usize, y2: usize) -> bool {
     std::cmp::max(x1, y1) <= std::cmp::min(x2, y2)
 }
 
-fn contains_part_indicator(input: &str) -> bool {
+fn update_part(item: &mut MachineItem, input: &str) -> bool {
     let input = input
         .replace('.', "")
         .replace('0', "")
@@ -23,6 +23,11 @@ fn contains_part_indicator(input: &str) -> bool {
         .replace('7', "")
         .replace('8', "")
         .replace('9', "");
+
+    if input.len() > 0 {
+        item.is_part = true;
+    }
+
     input.len() > 0
 }
 
@@ -41,6 +46,7 @@ fn get_adjecent_items(index: usize, items: &Vec<MachineItem>) -> Vec<usize> {
 }
 
 struct MachineItem {
+    is_part: bool,
     start: usize,
     end: usize,
     value: usize,
@@ -55,36 +61,28 @@ fn solution(input: &str) -> (usize, usize) {
     for (n, line) in lines.iter().enumerate() {
         numbers.insert(n, vec![]);
         for item in NUMBERS.find_iter(line) {
-            numbers.get_mut(&n).unwrap().push(MachineItem {
+            let mut item = MachineItem {
+                is_part: false,
                 start: item.start(),
                 end: item.end(),
                 value: item.as_str().parse().unwrap(),
-            });
+            };
 
             //let substrings = vec![];
-            let start = if item.start() > 0 {
-                item.start() - 1
-            } else {
-                0
-            };
-            let end = std::cmp::min(item.end() + 1, line.len());
+            let start = if item.start > 0 { item.start - 1 } else { 0 };
+            let end = std::cmp::min(item.end + 1, line.len());
 
-            if contains_part_indicator(&line[start..end]) {
-                total_p1 += item.as_str().parse::<usize>().unwrap();
-                continue;
-            }
+            update_part(&mut item, &line[start..end]);
             if n > 0 {
-                if contains_part_indicator(&lines[n - 1][start..end]) {
-                    total_p1 += item.as_str().parse::<usize>().unwrap();
-                    continue;
-                }
+                update_part(&mut item, &lines[n - 1][start..end]);
             }
             if n + 1 < lines.len() {
-                if contains_part_indicator(&lines[n + 1][start..end]) {
-                    total_p1 += item.as_str().parse::<usize>().unwrap();
-                    continue;
-                }
+                update_part(&mut item, &lines[n + 1][start..end]);
             }
+            if item.is_part {
+                total_p1 += item.value;
+            }
+            numbers.get_mut(&n).unwrap().push(item);
         }
     }
     for (n, line) in lines.iter().enumerate() {
