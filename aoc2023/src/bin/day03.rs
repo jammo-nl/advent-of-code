@@ -51,7 +51,7 @@ fn solution(input: &str) -> (usize, usize) {
     let mut total_p1: usize = 0;
     let mut total_p2: usize = 0;
     let mut numbers: HashMap<usize, Vec<MachineItem>> = HashMap::new();
-    let lines: Vec<&str> = input.split("\n").collect();
+    let lines: Vec<&str> = input.lines().collect();
     for (n, line) in lines.iter().enumerate() {
         numbers.insert(n, vec![]);
         for item in NUMBERS.find_iter(line) {
@@ -100,7 +100,6 @@ fn solution(input: &str) -> (usize, usize) {
 
             if adjecent_items.len() == 2 {
                 let score = adjecent_items.iter().product::<usize>();
-                println!("score {} for {:?}", score, adjecent_items);
                 total_p2 += score;
             }
         }

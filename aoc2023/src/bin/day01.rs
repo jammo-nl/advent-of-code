@@ -48,7 +48,7 @@ fn get_calibration_set(line: &str, tokens: &[&str]) -> CalibrationNumbers {
 fn solution(input: &str) -> (usize, usize) {
     let mut total_p1: usize = 0;
     let mut total_p2: usize = 0;
-    for line in input.split('\n') {
+    for line in input.lines() {
         let num1 = get_calibration_set(line, &P1_NUM);
         let num2 = get_calibration_set(line, &P2_NUM);
 
