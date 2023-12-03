@@ -31,7 +31,7 @@ fn update_part(item: &mut MachineItem, input: &str) -> bool {
     input.len() > 0
 }
 
-fn get_adjecent_items(index: usize, items: &Vec<MachineItem>) -> Vec<usize> {
+fn get_adjacent_items(index: usize, items: &Vec<MachineItem>) -> Vec<usize> {
     let mut res_items = vec![];
     for item in items {
         let start = if index == 0 { 0 } else { index - 1 };
@@ -87,17 +87,17 @@ fn solution(input: &str) -> (usize, usize) {
     }
     for (n, line) in lines.iter().enumerate() {
         for item in line.match_indices('*') {
-            let mut adjecent_items = vec![];
-            adjecent_items.extend(get_adjecent_items(item.0, numbers.get(&n).unwrap()));
+            let mut adjacent_items = vec![];
+            adjacent_items.extend(get_adjacent_items(item.0, numbers.get(&n).unwrap()));
             if n > 0 {
-                adjecent_items.extend(get_adjecent_items(item.0, numbers.get(&(n - 1)).unwrap()));
+                adjacent_items.extend(get_adjacent_items(item.0, numbers.get(&(n - 1)).unwrap()));
             }
             if n + 1 < lines.len() {
-                adjecent_items.extend(get_adjecent_items(item.0, numbers.get(&(n + 1)).unwrap()));
+                adjacent_items.extend(get_adjacent_items(item.0, numbers.get(&(n + 1)).unwrap()));
             }
 
-            if adjecent_items.len() == 2 {
-                let score = adjecent_items.iter().product::<usize>();
+            if adjacent_items.len() == 2 {
+                let score = adjacent_items.iter().product::<usize>();
                 total_p2 += score;
             }
         }
