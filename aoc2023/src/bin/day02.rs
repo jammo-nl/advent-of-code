@@ -49,7 +49,7 @@ fn solution(input: &str) -> (usize, usize) {
 
     let mut total_p1: usize = 0;
     let mut total_p2: usize = 0;
-    for line in input.split("\n") {
+    for line in input.lines() {
         let game = Game::new(line.trim(), &max_items);
         if game.is_valid() {
             total_p1 += game.num as usize;
