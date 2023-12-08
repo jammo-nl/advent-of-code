@@ -3,14 +3,16 @@ use std::ops::Range;
 
 struct Convert {
     tables: HashMap<String, (Vec<Range<usize>>, Vec<Range<usize>>)>,
+    list: Vec<(Vec<Range<usize>>, Vec<Range<usize>>)>,
 }
 impl Convert {
     fn new() -> Self {
         Self {
             tables: HashMap::new(),
+            list: vec![],
         }
     }
-    fn get_seed_location(&self, seed: usize) -> usize {
+    fn create_translation_list(&mut self) {
         let conv = [
             "seed-to-soil",
             "soil-to-fertilizer",
@@ -20,8 +22,13 @@ impl Convert {
             "temperature-to-humidity",
             "humidity-to-location",
         ];
-        let mut target = seed;
         for conv in conv {
+            self.list.push(self.tables.get(conv).unwrap().clone());
+        }
+    }
+    fn get_seed_location(&self, seed: usize) -> usize {
+        let mut target = seed;
+        for conv in &self.list {
             target = self.convert_item(target, conv);
         }
         target
@@ -45,9 +52,11 @@ impl Convert {
             Err(input)
         }
     }
-    fn convert_item(&self, input: usize, converter: &str) -> usize {
-        let converter = self.tables.get(converter).unwrap();
-
+    fn convert_item(
+        &self,
+        input: usize,
+        converter: &(Vec<Range<usize>>, Vec<Range<usize>>),
+    ) -> usize {
         for i in 0..converter.0.len() {
             match Convert::convert(input, &converter.0[i], &converter.1[i]) {
                 Ok(result) => return result,
@@ -80,6 +89,7 @@ fn solution(input: &str) -> (usize, usize) {
             converter.add_mapping(&process, input[1], input[0], input[2])
         }
     }
+    converter.create_translation_list();
 
     // process lines
     for seed in &seeds {
