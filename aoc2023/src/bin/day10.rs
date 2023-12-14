@@ -8,14 +8,14 @@ struct Pipe {
     contained: bool,
     distance: Option<usize>,
     location: Vec2,
-    exits: u8, 
+    exits: u8,
 }
 impl Pipe {
     fn new(input: &char, x: usize, y: usize) -> Self {
         Self {
             contained: true,
             distance: None,
-            location: Vec2 {x,y},
+            location: Vec2 { x, y },
             exits: match input {
                 // bits top-right-bottom-left
                 '|' => 0b1010u8,
@@ -26,35 +26,23 @@ impl Pipe {
                 'F' => 0b0110u8,
                 'S' => 0b1111u8,
                 _ => 0b0000u8,
-            }
+            },
         }
     }
-    fn draw(&self) -> char {
-        if self.distance.is_some() {
-            match self.exits {
-                0b1010u8 => '║',
-                0b0101u8 => '═',
-                0b1100u8 => '╚',
-                0b1001u8 => '╝',
-                0b0011u8 => '╗',
-                0b0110u8 => '╔',
-                0b1111u8 => '╋',
-                _ => '?'
-            }
-        } else {
-            if self.contained {
-                'I'
-            } else {
-                'O'
-            }
-        }
-    }
-    fn get_directions(&self, origin: &Direction) -> Vec<Direction> {
+    fn get_directions(&self) -> Vec<Direction> {
         let mut directions = vec![];
-        if self.exits & 0b1000u8 != 0 {directions.push(Direction::Up)}
-        if self.exits & 0b0100u8 != 0 {directions.push(Direction::Right)}
-        if self.exits & 0b0010u8 != 0 {directions.push(Direction::Down)}
-        if self.exits & 0b0001u8 != 0 {directions.push(Direction::Left)}
+        if self.exits & 0b1000u8 != 0 {
+            directions.push(Direction::Up)
+        }
+        if self.exits & 0b0100u8 != 0 {
+            directions.push(Direction::Right)
+        }
+        if self.exits & 0b0010u8 != 0 {
+            directions.push(Direction::Down)
+        }
+        if self.exits & 0b0001u8 != 0 {
+            directions.push(Direction::Left)
+        }
 
         directions
     }
@@ -66,24 +54,30 @@ enum Direction {
     Right,
     Down,
     Left,
-    None
+    None,
 }
 
 struct Grid {
     start_item: Vec2,
-    items: Vec<Vec<Pipe>>
-} impl Grid {
-    fn new() -> Self {Self{start_item: Vec2 { x: 0, y: 0 }, items: vec![]}}
+    items: Vec<Vec<Pipe>>,
+}
+impl Grid {
+    fn new() -> Self {
+        Self {
+            start_item: Vec2 { x: 0, y: 0 },
+            items: vec![],
+        }
+    }
     fn add(&mut self, input: &char, x: usize, y: usize) {
-        let mut p = Pipe::new(input, x,y);
+        let mut p = Pipe::new(input, x, y);
         if *input == 'S' {
             p.distance = Some(0);
-            self.start_item = Vec2{x,y};
+            self.start_item = Vec2 { x, y };
         }
-        while self.items.len() < y+1 {
+        while self.items.len() < y + 1 {
             self.items.push(vec![]);
         }
-        while self.items[y].len() < x+1 {
+        while self.items[y].len() < x + 1 {
             self.items[y].push(Pipe::new(&'.', x, y));
         }
 
@@ -92,22 +86,71 @@ struct Grid {
     fn get_item_mut(&mut self, location: Vec2, from: &Direction) -> Option<&mut Pipe> {
         if let Some(item) = self.items[location.y].get_mut(location.x) {
             match from {
-                Direction::Up => { if item.exits & 0b0010 != 0 { Some(item)} else { None } },
-                Direction::Right => { if item.exits & 0b0001 != 0 { Some(item)} else { None } },
-                Direction::Down => { if item.exits & 0b1000 != 0 { Some(item)} else { None } },
-                Direction::Left => { if item.exits & 0b0100 != 0 { Some(item)} else { None } },
+                Direction::Up => {
+                    if item.exits & 0b0010 != 0 {
+                        Some(item)
+                    } else {
+                        None
+                    }
+                }
+                Direction::Right => {
+                    if item.exits & 0b0001 != 0 {
+                        Some(item)
+                    } else {
+                        None
+                    }
+                }
+                Direction::Down => {
+                    if item.exits & 0b1000 != 0 {
+                        Some(item)
+                    } else {
+                        None
+                    }
+                }
+                Direction::Left => {
+                    if item.exits & 0b0100 != 0 {
+                        Some(item)
+                    } else {
+                        None
+                    }
+                }
                 Direction::None => Some(item),
             }
         } else {
             None
         }
-    }fn get_item(&self, location: Vec2, from: &Direction) -> Option<&Pipe> {
+    }
+    fn get_item(&self, location: Vec2, from: &Direction) -> Option<&Pipe> {
         if let Some(item) = self.items[location.y].get(location.x) {
             match from {
-                Direction::Up => { if item.exits & 0b0010 != 0 { Some(item)} else { None } },
-                Direction::Right => { if item.exits & 0b0001 != 0 { Some(item)} else { None } },
-                Direction::Down => { if item.exits & 0b1000 != 0 { Some(item)} else { None } },
-                Direction::Left => { if item.exits & 0b0100 != 0 { Some(item)} else { None } },
+                Direction::Up => {
+                    if item.exits & 0b0010 != 0 {
+                        Some(item)
+                    } else {
+                        None
+                    }
+                }
+                Direction::Right => {
+                    if item.exits & 0b0001 != 0 {
+                        Some(item)
+                    } else {
+                        None
+                    }
+                }
+                Direction::Down => {
+                    if item.exits & 0b1000 != 0 {
+                        Some(item)
+                    } else {
+                        None
+                    }
+                }
+                Direction::Left => {
+                    if item.exits & 0b0100 != 0 {
+                        Some(item)
+                    } else {
+                        None
+                    }
+                }
                 Direction::None => Some(item),
             }
         } else {
@@ -116,10 +159,46 @@ struct Grid {
     }
     fn get_coordinate(&self, start: &Vec2, direction: &Direction) -> Option<Vec2> {
         match direction {
-            Direction::Up => {if start.y == 0 { None } else { Some(Vec2{x: start.x, y: start.y-1 }) }},
-            Direction::Right => {if start.x == self.items[0].len() -1 { None } else { Some(Vec2{x: start.x+1, y: start.y }) }},
-            Direction::Down => {if start.y == self.items.len() -1 { None } else { Some(Vec2{x: start.x, y: start.y+1 }) }},
-            Direction::Left => {if start.x == 0 { None } else { Some(Vec2{ x: start.x-1, y: start.y }) }},
+            Direction::Up => {
+                if start.y == 0 {
+                    None
+                } else {
+                    Some(Vec2 {
+                        x: start.x,
+                        y: start.y - 1,
+                    })
+                }
+            }
+            Direction::Right => {
+                if start.x == self.items[0].len() - 1 {
+                    None
+                } else {
+                    Some(Vec2 {
+                        x: start.x + 1,
+                        y: start.y,
+                    })
+                }
+            }
+            Direction::Down => {
+                if start.y == self.items.len() - 1 {
+                    None
+                } else {
+                    Some(Vec2 {
+                        x: start.x,
+                        y: start.y + 1,
+                    })
+                }
+            }
+            Direction::Left => {
+                if start.x == 0 {
+                    None
+                } else {
+                    Some(Vec2 {
+                        x: start.x - 1,
+                        y: start.y,
+                    })
+                }
+            }
             Direction::None => None,
         }
     }
@@ -136,14 +215,6 @@ struct Grid {
         }
         max_distance
     }
-    fn print(&self) {
-        for line in self.items.iter() {
-            for item in line.iter() {
-                print!("{}", item.draw());
-            }
-            println!("");
-        }
-    }
     fn get_contained(&self) -> usize {
         let mut num_contained = 0;
         for i in &self.items {
@@ -155,73 +226,58 @@ struct Grid {
         }
         num_contained
     }
-    fn update_contained_item(&mut self, location: Vec2) {
-        if let Some(item) = self.get_item_mut(location.clone(), &Direction::None) {
-            // if the items is in the loop or already set to false we are done..
-            if !item.contained || item.distance.is_some() {
-                return;
-            }
-            item.contained = false;
-        }
-
-        // get the locations top,left,right,bottom for this item and update them
-        // for top and bottom also get their left/right neighbours
-        let mut new_updates = vec![];
-        if let Some(coordinate) = self.get_coordinate(&location, &Direction::Up) {
-            new_updates.push(coordinate.clone());
-            if let Some(coordinate) = self.get_coordinate(&coordinate.clone(), &Direction::Left) {
-                new_updates.push(coordinate);
-            }
-            if let Some(coordinate) = self.get_coordinate(&coordinate.clone(), &Direction::Right) {
-                new_updates.push(coordinate);
-            }
-        }
-        if let Some(coordinate) = self.get_coordinate(&location, &Direction::Down) {
-            new_updates.push(coordinate.clone());
-            if let Some(coordinate) = self.get_coordinate(&coordinate.clone(), &Direction::Left) {
-                new_updates.push(coordinate);
-            }
-            if let Some(coordinate) = self.get_coordinate(&coordinate.clone(), &Direction::Right) {
-                new_updates.push(coordinate);
-            }
-        }
-        if let Some(coordinate) = self.get_coordinate(&location, &Direction::Left) {
-            new_updates.push(coordinate);
-        }
-        if let Some(coordinate) = self.get_coordinate(&location, &Direction::Right) {
-            new_updates.push(coordinate);
-        }
-
-
-        for location in new_updates {
-            self.update_contained_item(location);
-        }
-    }
     fn update_contained(&mut self) {
-        let mut update_start_locations: Vec<Vec2> = vec![];
-        for (num, line) in self.items.iter().enumerate() {
-            if num == 0 {
-                for item in line.iter() {
-                    update_start_locations.push(item.location.clone());
+        let width = self.items[0].len() - 1;
+        let height = self.items.len() - 1;
+        let mut contained = vec![];
+        for line in self.items.iter() {
+            for pipe in line.iter() {
+                if pipe.distance.is_none() {
+                    // sides are never contained
+                    if pipe.location.x == 0
+                        || pipe.location.y == 0
+                        || pipe.location.x == width
+                        || pipe.location.y == height
+                    {
+                        contained.push(pipe.location.clone());
+                    } else {
+                        // count blokking edges, even is outside, uneven is contained
+                        let mut left_edges = 0;
+                        let current_y = pipe.location.y;
+                        let current_x = pipe.location.x;
+                        for i in 0..current_x {
+                            let p = self.get_item(Vec2 { x: i, y: current_y }, &Direction::None);
+                            if let Some(item) = p {
+                                if item.distance.is_some() {
+                                    if item.exits == 0b1010u8
+                                        || item.exits == 0b1001u8
+                                        || item.exits == 0b1100u8
+                                    {
+                                        left_edges += 1;
+                                    }
+                                }
+                            }
+                        }
+                        if left_edges == 0 || left_edges % 2 == 0 {
+                            contained.push(pipe.location.clone());
+                        }
+                    }
                 }
-            } else if num == self.items.len() - 1 {
-                for item in line.iter() {
-                    update_start_locations.push(item.location.clone());
-                }
-            } else {
-                // first and last item
-                update_start_locations.push(line[0].location.clone());
-                update_start_locations.push(line[line.len()-1].location.clone());
             }
         }
 
-        for location in update_start_locations {
-            self.update_contained_item(location);
+        for loc in contained {
+            let item = self.get_item_mut(loc, &Direction::None);
+            if let Some(item) = item {
+                item.contained = false;
+            }
         }
     }
     fn navigate(&mut self, location: Option<Vec2>, from: Direction, step: usize) {
         // update item distance
-        if let Some(item) = self.get_item_mut(location.clone().unwrap_or(self.start_item.clone()), &from) {
+        if let Some(item) =
+            self.get_item_mut(location.clone().unwrap_or(self.start_item.clone()), &from)
+        {
             item.distance = Some(step);
         }
 
@@ -229,27 +285,24 @@ struct Grid {
         let mut next_locations = vec![];
         {
             let item = self.get_item(location.unwrap_or(self.start_item.clone()), &from);
-            match item {
-                Some(item) => {
-                    for direction in item.get_directions(&from) {
-                        if let Some(coordinate) = self.get_coordinate(&item.location, &direction) {
-                                if let Some(new_item) =  self.get_item(coordinate.clone(), &direction) {
-                                    if let Some(dist) = new_item.distance {
-                                        if new_step >= dist {
-                                            continue;
-                                        }
-                                    }
-
-                                    next_locations.push((coordinate.clone(), direction.clone()));
+            if let Some(item) = item {
+                for direction in item.get_directions() {
+                    if let Some(coordinate) = self.get_coordinate(&item.location, &direction) {
+                        if let Some(new_item) = self.get_item(coordinate.clone(), &direction) {
+                            if let Some(dist) = new_item.distance {
+                                if new_step >= dist {
+                                    continue;
                                 }
-                        } 
-                    } 
+                            }
+
+                            next_locations.push((coordinate.clone(), direction.clone()));
+                        }
+                    }
                 }
-                none => ()
             }
         }
 
-        for (location,direction) in next_locations {
+        for (location, direction) in next_locations {
             self.navigate(Some(location), direction, new_step);
         }
     }
@@ -267,7 +320,6 @@ fn solution(input: &str) -> (usize, usize) {
 
     grid.navigate(None, Direction::None, 0);
     grid.update_contained();
-    grid.print();
 
     let total_p1 = grid.max_distance();
     let total_p2 = grid.get_contained();
@@ -319,7 +371,8 @@ L--J.L7...LJS7F-7L7.
     fn test_solution2() -> Result<(), String> {
         assert_eq!(solution(TEST_INPUT2.trim()).1, 10);
         Ok(())
-    }#[test]
+    }
+    #[test]
     fn test_solution3() -> Result<(), String> {
         assert_eq!(solution(TEST_INPUT3.trim()).1, 8);
         Ok(())
