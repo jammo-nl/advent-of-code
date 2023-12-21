@@ -1,78 +1,71 @@
-fn reflection_index<T: PartialEq + std::fmt::Display>(
-    items: &Vec<T>,
-    skip: Option<usize>,
-) -> usize {
+fn reflection_index<T: PartialEq + std::fmt::Display>(items: &Vec<T>) -> (usize, usize) {
     let mut reflects_at = 0;
+    let mut smudged_reflection = 0;
 
     for i in 0..(items.len() - 1) {
-        // Avoid returning the same item if we want to skip it
-        if let Some(skip) = skip {
-            if i == skip - 1 {
-                continue;
+        let mut diffs = 0;
+
+        // ignore this if we have a difference of 1 character
+        let line1: Vec<char> = items[i].to_string().chars().collect();
+        let line2: Vec<char> = items[i + 1].to_string().chars().collect();
+        for idx in 0..line1.len() {
+            if line1[idx] != line2[idx] {
+                diffs += 1;
             }
         }
 
-        if items[i] == items[i + 1] {
+        if items[i] == items[i + 1] || diffs == 1 {
             let mut reflect = true;
+            let mut smudge_reflect = true;
             for j in 1..i + 1 {
-                if reflect && (j > i || i + j + 2 > items.len()) {
+                if reflect && diffs == 0 && (j > i || i + j + 2 > items.len()) {
                     // edge detected, this case means we have a reflection
                     reflects_at = i + 1;
-                } else if reflect && items[i - j] != items[i + j + 1] {
+                } else if reflect && diffs == 0 && items[i - j] != items[i + j + 1] {
                     // if reflect was false ignore it, else set it to false when we detect we
                     // are not reflecting
                     reflect = false;
                 }
-            }
 
-            // loop ended if reflecct is still true we are reflecting
-            if reflect {
-                reflects_at = i + 1;
-            }
-        }
-    }
+                // do the same for smudge detection, ignore if the result is the same
+                if smudge_reflect && i + 1 != reflects_at && (j > i || i + j + 2 > items.len()) {
+                    smudged_reflection = i + 1;
+                } else if smudge_reflect
+                    && !(j > i || i + j + 2 > items.len())
+                    && items[i - j] != items[i + j + 1]
+                {
+                    // ignore this if we have a difference of 1 character
+                    let line1: Vec<char> = items[i - j].to_string().chars().collect();
+                    let line2: Vec<char> = items[i + j + 1].to_string().chars().collect();
+                    for idx in 0..line1.len() {
+                        if line1[idx] != line2[idx] {
+                            diffs += 1;
+                        }
+                    }
 
-    reflects_at
-}
-fn line_smudges<T: PartialEq + std::fmt::Display + std::fmt::Debug>(
-    items: &Vec<T>,
-) -> Vec<(usize, usize, usize)> {
-    let mut locations = vec![];
-    for i in 0..(items.len() - 1) {
-        let line1: Vec<char> = items[i].to_string().chars().collect();
-        let line2: Vec<char> = items[i + 1].to_string().chars().collect();
-
-        for idx in 0..line1.len() {
-            if line1[idx] != line2[idx] {
-                locations.push((idx, i, i + 1));
-            }
-        }
-
-        if items[i] == items[i + 1] {
-            for j in 1..i + 1 {
-                if j > i || i + j + 2 > items.len() {
-                    // edge detected,
-                    break;
-                }
-
-                let line1: Vec<char> = items[i - j].to_string().chars().collect();
-                let line2: Vec<char> = items[i + j + 1].to_string().chars().collect();
-
-                for idx in 0..line1.len() {
-                    if line1[idx] != line2[idx] {
-                        locations.push((idx, i - j, i + j + 1));
+                    if diffs > 1 {
+                        smudge_reflect = false;
                     }
                 }
             }
+
+            // loop ended if reflecct is still true we are reflecting
+            if reflect && diffs == 0 {
+                reflects_at = i + 1;
+            }
+            if smudge_reflect && i + 1 != reflects_at {
+                smudged_reflection = i + 1;
+            }
         }
     }
-    locations
+
+    (reflects_at, smudged_reflection)
 }
 
 fn get_reflection_indexes(block: &str) -> (usize, usize, usize, usize) {
     // horizontal
     let lines: Vec<&str> = block.lines().collect();
-    let horizontal = reflection_index(&lines, None);
+    let horizontal = reflection_index(&lines);
 
     let mut cols: Vec<String> = vec![];
     for line in block.lines() {
@@ -84,9 +77,9 @@ fn get_reflection_indexes(block: &str) -> (usize, usize, usize, usize) {
             cols[idx] = format!("{}{}", cols[idx], col);
         }
     }
-    let vertical = reflection_index(&cols, None);
+    let vertical = reflection_index(&cols);
 
-    (vertical, horizontal, 0, 0)
+    (vertical.0, horizontal.0, vertical.1, horizontal.1)
 }
 
 #[aoc2023::main(13)]
