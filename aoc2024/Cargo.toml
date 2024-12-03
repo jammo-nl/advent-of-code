@@ -11,3 +11,7 @@ proc-macro = true
 syn = { version = "*", features = ["full"] }
 quote = "*"
 proc-macro2 = "*"
+regex = "1.11.1"
+
+[profile.dev]
+opt-level = 3
