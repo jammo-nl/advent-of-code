@@ -10,13 +10,13 @@ fn solution(input: &str) -> (usize, usize) {
     let items = muls.captures_iter(input);
 
     for item in items {
-        if let Some(_) = item.name("do") {
+        if item.name("do").is_some() {
             mul_enabled = true;
         }
-        if let Some(_) = item.name("dont") {
+        if item.name("dont").is_some() {
             mul_enabled = false;
         }
-        if let Some(_) = item.name("cmd") {
+        if item.name("cmd").is_some() {
             let start = item
                 .name("start")
                 .unwrap()
