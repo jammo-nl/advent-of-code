@@ -15,6 +15,7 @@ enum ReturnType {
 
 fn step_trough(
     start_pos: isize,
+    _prev_pos: isize,
     pos: &mut isize,
     current_dir: &mut u8,
     directions: &Vec<isize>,
@@ -27,6 +28,7 @@ fn step_trough(
 ) -> ReturnType {
     let start_x = *pos % width;
     let start_y = *pos / width;
+    let prev_pos = *pos;
     let test_pos = *pos + directions[*current_dir as usize];
 
     let end_x = test_pos % width;
@@ -37,10 +39,8 @@ fn step_trough(
     }
 
     // collect info for a test round
-    let mut do_loop_test = false;
     match &mut grid[test_pos as usize] {
         Item::Space(res) => {
-            do_loop_test = true;
             // check if we are looping
             if visits.contains(&(test_pos, *current_dir)) {
                 *loop_count += 1;
@@ -57,11 +57,11 @@ fn step_trough(
         Item::Wall => *current_dir = (*current_dir + 1) % directions.len() as u8,
     }
 
-    if !(loop_test && do_loop_test) {
+    if !(loop_test) {
         return ReturnType::Working;
     }
     // check if the next value is blocking, a wall or our start location, if so we can not build an obstacle
-    let obs_pos = *pos + directions[*current_dir as usize];
+    let obs_pos = prev_pos + directions[*current_dir as usize];
     let obs_x = obs_pos % width;
     let obs_y = obs_pos / width;
 
@@ -87,12 +87,13 @@ fn step_trough(
 
     // track visits
     let mut sub_visits = visits.clone();
-    let mut alt_pos = *pos;
+    let mut alt_pos = prev_pos;
     let mut alt_dir = (*current_dir + 1) % directions.len() as u8;
 
     loop {
         let result = step_trough(
             start_pos,
+            prev_pos,
             &mut alt_pos,
             &mut alt_dir,
             &directions,
@@ -153,6 +154,7 @@ fn solution(input: &str) -> (usize, usize) {
 
     let start_pos = pos;
     while step_trough(
+        start_pos,
         start_pos,
         &mut pos,
         &mut current_dir,
